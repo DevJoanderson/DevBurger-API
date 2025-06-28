@@ -2,7 +2,9 @@ import Sequelize from 'sequelize';
 
 import configDatabase from '../config/database.cjs';
 
-import User from '../app/models/User.js';
+import User from "../App/models/User.js";
+
+
 
 
 
