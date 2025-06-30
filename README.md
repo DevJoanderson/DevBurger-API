@@ -82,7 +82,7 @@ Os arquivos são armazenados na pasta `/uploads` e renomeados com `uuid` + exten
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/DevBurger-api.git
+   git clone https://github.com/DevJoanderson/DevBurger-api.git
 Instale as dependências:
 
 bash
