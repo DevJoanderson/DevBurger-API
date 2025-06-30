@@ -1,73 +1,98 @@
 # 🍔 DevBurger API
 
-API RESTful desenvolvida em Node.js com Express e PostgreSQL para simular o backend de um sistema de pedidos de uma hamburgueria digital.
+API REST construída com Node.js, Express e Sequelize para gerenciamento de usuários e produtos de uma hamburgueria fictícia.
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🚀 Funcionalidades
 
-- [Node.js](https://nodejs.org/)
-- [Express](https://expressjs.com/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-- [Nodemon](https://www.npmjs.com/package/nodemon)
-- [Sucrase](https://www.npmjs.com/package/sucrase)
-- [pg (node-postgres)](https://node-postgres.com/)
+- ✅ Cadastro de usuários
+- ✅ Login com autenticação via JWT
+- ✅ Hash de senhas com bcrypt
+- ✅ Criação de produtos (nome, preço, categoria, imagem)
+- ✅ Controle de administrador (`admin`)
+- ✅ Migrations com Sequelize
+- ✅ Validação com Yup
 
 ---
 
-## 🧱 Configuração do Ambiente
 
-1. **Clone o repositório**
-   ```bash
-   git clone https://github.com/DevJoanderson/devburger-api.git
-   cd devburger-api
-2 Instale as dependências
+## 🧰 Tecnologias utilizadas
 
-bash
+- Node.js
+- Express
+- Sequelize ORM
+- PostgreSQL
+- JWT (Json Web Token)
+- Bcrypt
+- dotenv
+- Yup
+
+---
+
+## 📦 Instalação
+
+```bash
+git clone https://github.com/seu-usuario/2DevBurger-api.git
+cd 2DevBurger-api
 yarn install
 
-3 Configure o banco com Docker
+⚙️ Configuração
+Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
 
+env
+APP_URL=http://localhost:3001
+JWT_SECRET=sua_chave_secreta
+DB_USER=seu_usuario_postgres
+DB_PASS=sua_senha
+DB_NAME=devburger
+DB_HOST=localhost
+🧬 Rodando as migrations
 bash
-docker-compose up -d
 
-4 Crie o arquivo .env com as variáveis:
-
-ini
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=devburger
-
-5 Inicie o servidor
-
+yarn sequelize db:migrate
+▶️ Iniciando o servidor
 bash
+Copiar
+Editar
 yarn dev
+O servidor será iniciado em: http://localhost:3001
 
-📦 Scripts disponíveis
-yarn dev: inicia o servidor com Sucrase + Nodemon
+📮 Rotas disponíveis
+🔐 Sessão (Login)
+POST /session
 
-yarn start: inicia o servidor normalmente
+json
 
-🛠 Estrutura do Projeto
+{
+  "email": "usuario@email.com",
+  "password": "suasenha"
+}
+Retorno:
+
+json
+
+{
+  "user": {
+    "id": "uuid",
+    "name": "Usuário",
+    "email": "usuario@email.com",
+    "admin": false
+  },
+  "token": "jwt_token"
+}
+📁 Estrutura de pastas
 pgsql
-devburger-api/
-├── src/
-│   ├── app.js
-│   ├── server.js
-│   ├── routes.js
-│   └── database/
-│       └── database.js
-├── docker-compose.yml
-├── .env
-├── .gitignore
-└── package.json
-🐞 Problemas resolvidos
-Erro: password authentication failed for user "postgres"
-🔍 Solução: Recriação do container com senha explícita e reset de senha dentro do PostgreSQL usando o terminal do Docker.
 
-✍️ Autor
-Joanderson Eustorgio Souza
-
-GitHub
+src
+├── app
+│   ├── controllers
+│   ├── models
+├── config
+│   └── database.cjs
+├── database
+│   ├── migrations
+├── routes.js
+└── server.js
+🧑‍💻 Autor
+Joanderson Souza
