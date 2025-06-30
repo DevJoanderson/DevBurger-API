@@ -1,98 +1,120 @@
 # 🍔 DevBurger API
 
-API REST construída com Node.js, Express e Sequelize para gerenciamento de usuários e produtos de uma hamburgueria fictícia.
+API RESTful para gerenciamento de usuários e produtos, com autenticação JWT, upload de imagens com `multer`, e banco de dados relacional com Sequelize.
 
 ---
 
-## 🚀 Funcionalidades
+## 🚀 Tecnologias utilizadas
 
-- ✅ Cadastro de usuários
-- ✅ Login com autenticação via JWT
-- ✅ Hash de senhas com bcrypt
-- ✅ Criação de produtos (nome, preço, categoria, imagem)
-- ✅ Controle de administrador (`admin`)
-- ✅ Migrations com Sequelize
-- ✅ Validação com Yup
-
----
-
-
-## 🧰 Tecnologias utilizadas
-
-- Node.js
-- Express
-- Sequelize ORM
-- PostgreSQL
-- JWT (Json Web Token)
-- Bcrypt
-- dotenv
-- Yup
+- **Node.js**
+- **Express**
+- **Sequelize (ORM)**
+- **PostgreSQL**
+- **JWT (autenticação)**
+- **Multer (upload de arquivos)**
+- **UUID (geração de IDs únicos)**
+- **Yup (validação de dados)**
 
 ---
 
-## 📦 Instalação
+## 📁 Estrutura de pastas
 
-```bash
-git clone https://github.com/seu-usuario/2DevBurger-api.git
-cd 2DevBurger-api
-yarn install
+src/
+├── App/
+│ ├── controllers/
+│ │ ├── SessionController.js
+│ │ ├── UserController.js
+│ │ └── ProductController.js
+│ ├── models/
+│ │ └── User.js
+│
+├── config/
+│ ├── database.cjs
+│ └── multer.js
+│
+├── database/
+│ └── migrations/
+│ ├── create-users-table.js
+│ └── create-products-table.js
+│
+├── uploads/ # Arquivos enviados (imagens de produtos)
+├── routes.js
+├── server.js
 
-⚙️ Configuração
-Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
+yaml
+Copiar
+Editar
 
-env
-APP_URL=http://localhost:3001
-JWT_SECRET=sua_chave_secreta
-DB_USER=seu_usuario_postgres
-DB_PASS=sua_senha
-DB_NAME=devburger
-DB_HOST=localhost
-🧬 Rodando as migrations
+---
+
+## 🔐 Autenticação
+
+Autenticação via JWT. Após o login, a API retorna um token válido por 7 dias.
+
+---
+
+## 📦 Funcionalidades principais
+
+- ✅ Cadastro de usuários  
+- ✅ Login de usuários (JWT)  
+- ✅ Cadastro de produtos com upload de imagem  
+- ✅ Hash de senha com bcrypt  
+- ✅ Validação de dados com Yup  
+- ✅ Migrations com Sequelize CLI
+
+---
+
+## 🔄 Rotas disponíveis
+
+| Método | Rota           | Descrição                          |
+|--------|----------------|------------------------------------|
+| POST   | `/users`       | Cadastrar usuário                  |
+| POST   | `/session`     | Login do usuário (retorna token)   |
+| POST   | `/products`    | Cadastrar produto (com imagem)     |
+
+---
+
+## 📤 Upload de arquivos
+
+Os arquivos são armazenados na pasta `/uploads` e renomeados com `uuid` + extensão original, para evitar conflitos de nomes.
+
+---
+
+## 🧪 Como rodar o projeto
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/DevBurger-api.git
+Instale as dependências:
+
 bash
+Copiar
+Editar
+yarn
+Configure o arquivo .env:
 
+ini
+Copiar
+Editar
+DB_NAME=seu_banco
+DB_USER=seu_usuario
+DB_PASS=sua_senha
+DB_HOST=localhost
+JWT_SECRET=suachavesecreta
+Rode as migrations:
+
+bash
+Copiar
+Editar
 yarn sequelize db:migrate
-▶️ Iniciando o servidor
+Inicie o servidor:
+
 bash
 Copiar
 Editar
 yarn dev
-O servidor será iniciado em: http://localhost:3001
+💬 Contribuição
+Sinta-se à vontade para contribuir com melhorias, abrir issues ou enviar pull requests.
 
-📮 Rotas disponíveis
-🔐 Sessão (Login)
-POST /session
-
-json
-
-{
-  "email": "usuario@email.com",
-  "password": "suasenha"
-}
-Retorno:
-
-json
-
-{
-  "user": {
-    "id": "uuid",
-    "name": "Usuário",
-    "email": "usuario@email.com",
-    "admin": false
-  },
-  "token": "jwt_token"
-}
-📁 Estrutura de pastas
-pgsql
-
-src
-├── app
-│   ├── controllers
-│   ├── models
-├── config
-│   └── database.cjs
-├── database
-│   ├── migrations
-├── routes.js
-└── server.js
-🧑‍💻 Autor
-Joanderson Souza
+📄 Licença
+Projeto com fins educacionais — por DevBurger 🍔
