@@ -42,8 +42,6 @@ src/
 ├── server.js
 
 yaml
-Copiar
-Editar
 
 ---
 
@@ -88,14 +86,12 @@ Os arquivos são armazenados na pasta `/uploads` e renomeados com `uuid` + exten
 Instale as dependências:
 
 bash
-Copiar
-Editar
+
 yarn
 Configure o arquivo .env:
 
 ini
-Copiar
-Editar
+
 DB_NAME=seu_banco
 DB_USER=seu_usuario
 DB_PASS=sua_senha
@@ -104,14 +100,12 @@ JWT_SECRET=suachavesecreta
 Rode as migrations:
 
 bash
-Copiar
-Editar
+
 yarn sequelize db:migrate
 Inicie o servidor:
 
 bash
-Copiar
-Editar
+
 yarn dev
 💬 Contribuição
 Sinta-se à vontade para contribuir com melhorias, abrir issues ou enviar pull requests.
