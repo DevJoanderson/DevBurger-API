@@ -1,24 +1,20 @@
-import Sequelize from 'sequelize';
-
-import configDatabase from '../config/database.cjs';
-
+import Sequelize from "sequelize";
+import configDatabase from "../config/database.cjs";
 import User from "../App/models/User.js";
+import Product from "../App/models/Product.js"; // ✅ CERTO
 
 
-
-
-
-const models = [User];
+const models = [User, Product];
 
 class Database {
-    constructor(){
-        this.init();
-    }
+  constructor() {
+    this.init();
+  }
 
-    init() {
-        this.connection = new Sequelize(configDatabase);
-        models.map((model) => model.init(this.connection));
-    }
+  init() {
+    this.connection = new Sequelize(configDatabase);
+    models.map((model) => model.init(this.connection));
+  }
 }
 
 export default new Database();
