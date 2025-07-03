@@ -1,6 +1,5 @@
 import * as Yup from "yup";
-import Product from "../models/Product.js"; // ✅ Correto
-
+import Product from "../models/Product.js"; 
 class ProductController {
   async index(req, res) {
     const products = await Product.findAll();

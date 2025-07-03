@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "type": "module",
-
   "scripts": {
     "dev": "nodemon --exec sucrase-node src/server.js",
     "db:migrate": "node --loader ts-node/esm ./node_modules/.bin/sequelize db:migrate"
