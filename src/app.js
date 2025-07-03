@@ -1,8 +1,8 @@
-import express from 'express';
-import routes from './routes.js';
+import express from "express";
+import routes from "./routes.js";
 import { resolve } from "path";
 
-import './database/index.js';
+import "./database/index.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -18,7 +18,10 @@ class App {
 
   middlewares() {
     this.app.use(express.json());
-    this.app.use("/product-file", express.static(resolve(__dirname, "..", "uploads")));
+    this.app.use(
+      "/product-file",
+      express.static(resolve(__dirname, "..", "uploads"))
+    );
   }
 
   routes() {
