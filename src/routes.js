@@ -6,6 +6,7 @@ import authMiddleware from "./middlewares/auth.js";
 import UserController from "./App/controllers/UserController.js";
 import SessionController from "./App/controllers/SessionController.js";
 import ProductCrontroller from "./App/controllers/ProductCrontroller.js";
+import CategoryCrontroller from "./App/controllers/CategoryCrontroller.js";
 
 const routes = Router();
 
@@ -17,5 +18,8 @@ routes.post("/session", SessionController.store);
 routes.use(authMiddleware);
 routes.post("/products", upload.single("file"), ProductCrontroller.store);
 routes.get("/products", authMiddleware, ProductCrontroller.index);
+
+routes.post("/categories", CategoryCrontroller.store);
+routes.get("/categories", CategoryCrontroller.index);
 
 export default routes;
