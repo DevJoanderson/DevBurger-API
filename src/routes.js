@@ -23,3 +23,4 @@ routes.post("/categories", CategoryCrontroller.store);
 routes.get("/categories", CategoryCrontroller.index);
 
 export default routes;
+ 
