@@ -20,6 +20,7 @@ routes.post("/session", SessionController.store);
 routes.use(authMiddleware);
 routes.post("/products", upload.single("file"), ProductCrontroller.store);
 routes.get("/products", authMiddleware, ProductCrontroller.index);
+routes.put("/products/:id", upload.single("file"), ProductCrontroller.update);
 
 routes.post("/categories", CategoryCrontroller.store);
 routes.get("/categories", CategoryCrontroller.index);
