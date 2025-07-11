@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 import Product from "../models/Product.js";
 import Category from "../models/Category.js";
+import User from "../models/User.js";
 class ProductController {
  async store(req, res) {
   const schema = Yup.object({
@@ -14,6 +15,10 @@ class ProductController {
   } catch (err) {
     return res.status(400).json({ error: err.errors });
   }
+    const { admin: isAdmin } = await User.findByPk(req.userId);
+      if (!isAdmin) {
+        return res.status(401).json();
+      }
 
   if (!req.file) {
     return res.status(400).json({ error: "Imagem do produto é obrigatória" });

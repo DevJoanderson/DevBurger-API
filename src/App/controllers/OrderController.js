@@ -91,6 +91,7 @@ class OrderController {
     if (!isAdmin) {
       return res.status(401).json({ error: "Unauthorized" });
     }
+    
 
     const { id } = req.params;
     const { status } = req.body;

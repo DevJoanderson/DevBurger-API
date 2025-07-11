@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 import Category from "../models/Category.js";
+import User from "../models/User.js";
 
 class CategoryController {
   async store(req, res) {
@@ -12,19 +13,22 @@ class CategoryController {
     } catch (err) {
       return res.status(400).json({ error: err.errors });
     }
-
+    const { admin: isAdmin } = await User.findByPk(req.userId);
+    if (!isAdmin) {
+      return res.status(401).json();
+    }
     const { name } = req.body;
 
     const categoriesExists = await Category.findOne({
       where: {
         name,
-      }
-    })
+      },
+    });
     if (categoriesExists) {
-      return res.status(400).json({error: "Category already exists"})
+      return res.status(400).json({ error: "Category already exists" });
     }
 
-    const {id} = await Category.create({
+    const { id } = await Category.create({
       name,
     });
 
