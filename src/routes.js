@@ -8,6 +8,7 @@ import UserController from "./App/controllers/UserController.js";
 import SessionController from "./App/controllers/SessionController.js";
 import ProductCrontroller from "./App/controllers/ProductCrontroller.js";
 import CategoryCrontroller from "./App/controllers/CategoryCrontroller.js";
+import OrderController from "./App/controllers/OrderController.js";
 
 const routes = Router();
 
@@ -22,6 +23,8 @@ routes.get("/products", authMiddleware, ProductCrontroller.index);
 
 routes.post("/categories", CategoryCrontroller.store);
 routes.get("/categories", CategoryCrontroller.index);
+
+routes.post("/orders", OrderController.store);
 
 export default routes;
  
