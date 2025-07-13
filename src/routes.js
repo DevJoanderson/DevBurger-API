@@ -4,6 +4,7 @@ import multerConfig from "./config/multer.js";
 import authMiddleware from './App/middlewares/auth.js';
 
 
+
 import UserController from "./App/controllers/UserController.js";
 import SessionController from "./App/controllers/SessionController.js";
 import ProductCrontroller from "./App/controllers/ProductCrontroller.js";
@@ -22,8 +23,9 @@ routes.post("/products", upload.single("file"), ProductCrontroller.store);
 routes.get("/products", authMiddleware, ProductCrontroller.index);
 routes.put("/products/:id", upload.single("file"), ProductCrontroller.update);
 
-routes.post("/categories", CategoryCrontroller.store);
+routes.post("/categories", upload.single("file"), CategoryCrontroller.store);
 routes.get("/categories", CategoryCrontroller.index);
+routes.put("/categories/:id", upload.single("file"), ProductCrontroller.update);
 
 routes.post("/orders", OrderController.store);
 routes.get("/orders", OrderController.index);
