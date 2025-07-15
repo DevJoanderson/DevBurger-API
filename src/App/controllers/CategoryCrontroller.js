@@ -1,95 +1,100 @@
 import * as Yup from "yup";
+
 import Category from "../models/Category.js";
 import User from "../models/User.js";
 
-class CategoryController {async store(req, res) {
-  const schema = Yup.object({
-    name: Yup.string().required(),
-  });
+class CategoryController {
+  async store(req, res) {
+    const schema = Yup.object({
+      name: Yup.string().required(),
+    });
 
-  try {
-    schema.validateSync(req.body, { abortEarly: false });
+    try {
+      schema.validateSync(req.body, { abortEarly: false });
 
-    const { admin: isAdmin } = await User.findByPk(req.userId);
-    if (!isAdmin) {
-      return res.status(401).json({ error: "Acesso não autorizado." });
+      const { admin: isAdmin } = await User.findByPk(req.userId);
+      if (!isAdmin) {
+        return res.status(401).json({ error: "Acesso não autorizado." });
+      }
+
+      const path = req.file ? req.file.filename : null;
+      const { name } = req.body;
+
+      const categoryExists = await Category.findOne({ where: { name } });
+      if (categoryExists) {
+        return res.status(400).json({ error: "Categoria já existe." });
+      }
+
+      const { id } = await Category.create({ name, path });
+
+      return res.status(201).json({ id, name });
+    } catch (error) {
+      return res.status(500).json({ error: "Erro ao criar categoria." });
     }
-
-    const { filename: path } = req.file;
-    const { name } = req.body;
-
-    const categoriesExists = await Category.findOne({ where: { name } });
-    if (categoriesExists) {
-      return res.status(400).json({ error: "Categoria já existe." });
-    }
-
-    const { id } = await Category.create({ name, path });
-    return res.status(201).json({ id, name });
-
-  } catch (error) {
-    console.error("Erro ao criar categoria:", error);
-    return res.status(500).json({ error: "Erro interno ao criar categoria.", details: error.message });
   }
-  
-}
-async update(req, res) {
-  const schema = Yup.object({
-    name: Yup.string(),
-  });
 
-  try {
-    schema.validateSync(req.body, { abortEarly: false });
+  async update(req, res) {
+    const schema = Yup.object({
+      name: Yup.string(),
+    });
 
-    const { admin: isAdmin } = await User.findByPk(req.userId);
-    if (!isAdmin) {
-      return res.status(401).json({ error: "Acesso não autorizado." });
-    }
+    try {
+      schema.validateSync(req.body, { abortEarly: false });
 
-    const { id } = req.params;
-    const categoryExists = await Category.findBypk(id);
+      const { admin: isAdmin } = await User.findByPk(req.userId);
+      if (!isAdmin) {
+        return res.status(401).json({ error: "Acesso não autorizado." });
+      }
 
-    if (!categoryExists) {
-      return res.status(400).json({ message: "Make sure your category ID is correct."});
-    }
+      const { id } = req.params;
+      const categoryExists = await Category.findByPk(id);
+      if (!categoryExists) {
+        return res.status(400).json({ error: "ID da categoria inválido." });
+      }
 
-    let path;
-    if (!findProduct) {
-      path = req.file.filename;
-    }
+      const { name } = req.body;
+      const path = req.file ? req.file.filename : categoryExists.path;
 
-    const { name } = req.body;
-    
-    if (name) {
-      const categoryNameExists = await Category.findOne({
-        where: {
-          name,
+      if (name && name !== categoryExists.name) {
+        const categoryNameExists = await Category.findOne({ where: { name } });
+        if (categoryNameExists && categoryNameExists.id !== Number(id)) {
+          return res
+            .status(400)
+            .json({ error: "Nome da categoria já existe." });
         }
-      })
-
-      if (categoryNameExists) {
-        return res.status(400).json({ error: "category already exists"})
       }
+
+      await categoryExists.update({ name, path });
+
+      return res
+        .status(200)
+        .json({ message: "Categoria atualizada com sucesso." });
+    } catch (error) {
+      console.error("Erro ao atualizar categoria:", error);
+      return res.status(500).json({ error: "Erro ao atualizar categoria." });
     }
-    
-
-    await Category.update({  
-      name,  
-      path,
-    },{
-      where: { 
-        id,
-      }
-    })
-  
-
-  } catch (error) {
-    console.error("Erro ao criar categoria:", error);
-    return res.status(500).json({ error: "Erro interno ao criar categoria.", details: error.message });
   }
 
   async index(req, res) {
-    const categories = await Category.findAll();
-    return res.json(categories);
+    try {
+      const categories = await Category.findAll();
+
+      const formatted = categories.map((category) => ({
+        id: category.id,
+        name: category.name,
+        path: category.path,
+        url: category.url, // campo virtual
+        createdAt: category.createdAt,
+        updatedAt: category.updatedAt,
+      }));
+
+      return res.json(formatted);
+    } catch (error) {
+      return res.status(500).json({
+        error: "Erro ao listar categorias.",
+        details: error.message,
+      });
+    }
   }
 }
 
