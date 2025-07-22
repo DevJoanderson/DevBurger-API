@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "type": "module",
-
-   "scripts": {
+  "scripts": {
     "dev": "nodemon --exec sucrase-node src/server.js",
     "db:migrate": "node --loader ts-node/esm ./node_modules/.bin/sequelize db:migrate",
     "migrate": "sequelize-cli db:migrate"
@@ -18,6 +17,7 @@
   "description": "DevBurger AP.",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.6.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
