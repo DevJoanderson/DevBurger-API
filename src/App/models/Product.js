@@ -17,8 +17,8 @@ class Product extends Model {
         },
       },
       {
-        sequelize, // ✅ Certifique-se que isso esteja aqui
-        tableName: "products", // (opcional, mas ajuda a garantir)
+        sequelize, 
+        tableName: "products", 
       }
     );
     return this;

@@ -3,8 +3,6 @@ import multer from "multer";
 import multerConfig from "./config/multer.js";
 import authMiddleware from './App/middlewares/auth.js';
 
-
-
 import UserController from "./App/controllers/UserController.js";
 import SessionController from "./App/controllers/SessionController.js";
 import ProductCrontroller from "./App/controllers/ProductCrontroller.js";
