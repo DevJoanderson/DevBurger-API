@@ -64,7 +64,7 @@ class OrderController {
       products: formattedProducts,
       status: "Pedido Realizado!",
     };
-
+    console.log(req.userId, req.userName)
     const createdOrder = await Order.create(order);
 
     return res.status(201).json(createdOrder);

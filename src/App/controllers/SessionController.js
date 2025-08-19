@@ -1,11 +1,11 @@
 import * as Yup from "yup";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import authConfig from "../../config/auth.js"; // nome corrigido para consistência
+import authConfig from "../../config/auth.js"; 
 
 class SessionController {
   async store(req, res) {
-    // Validação dos campos
+    
     const schema = Yup.object({
       email: Yup.string().email().required(),
       password: Yup.string().min(6).required(),
@@ -39,7 +39,7 @@ class SessionController {
       expiresIn: authConfig.expiresIn, // geralmente '7d'
     });
 
-    // Resposta correta: token no nível raiz
+    
     return res.status(200).json({
       user: {
         id: user.id,
