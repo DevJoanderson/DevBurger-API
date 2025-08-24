@@ -1,0 +1,15 @@
+# dependências
+node_modules/
+
+# envs e segredos
+.env
+.env.local
+*.env
+
+# uploads/artefatos
+uploads/
+coverage/
+dist/
+build/
+.tmp/
+.DS_Store
