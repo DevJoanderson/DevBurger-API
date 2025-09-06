@@ -29,7 +29,7 @@ routes.post('/session', SessionController.store);
 // ---------- Privadas ----------
 routes.use(authMiddleware);
 
-// Se quiser pagamento COM login, deixe-a aqui (privada). Mantenha apenas UMA das duas acima.
+
 routes.post('/create-payment-intent', CreatePaymentIntentController.store);
 
 // Produtos

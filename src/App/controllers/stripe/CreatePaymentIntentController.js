@@ -12,7 +12,6 @@ const calculateOrderAmount = (items) => {
     return total;
 };
 
-
 const CreatePaymentIntentController = {
   async store(request, response) {
     const schema = yup.object({
@@ -33,7 +32,7 @@ const CreatePaymentIntentController = {
 
     const amount = calculateOrderAmount(products);
 
-    // Create a PaymentIntent with the order amount and currency
+  
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: "brl",
@@ -50,5 +49,4 @@ const CreatePaymentIntentController = {
   }
 };
 
-// Exportar o objeto, não a invocação da função
 export default CreatePaymentIntentController;
